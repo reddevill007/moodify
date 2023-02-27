@@ -52,10 +52,8 @@ export default function Detection() {
 
     videoRef.current.srcObject = null;
 
-    setTimeout(() => {
-      setOpen(true);
-      setLoading(false);
-    }, 5000);
+    setOpen(true);
+    setLoading(false);
   };
 
   const faceDetection = async () => {
@@ -115,7 +113,7 @@ export default function Detection() {
         Stop
       </button>
       {loading ? "loading..." : null}
-      {open && <Link href="/dashboard">Find Music</Link>}
+      {open && <Link href={`/dashboard/${result}`}>Find Music</Link>}
 
       <p>You seem {result} </p>
     </div>
