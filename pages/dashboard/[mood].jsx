@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-    const [mood, setMood] = useState("sad")
+    const [mood, setMood] = useState("")
     const router = useRouter();
 
     useEffect(() => {
