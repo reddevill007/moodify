@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
+import Sidebar from "../../components/Sidebar";
 
 export default function Dashboard() {
     const [mood, setMood] = useState("")
@@ -13,8 +14,16 @@ export default function Dashboard() {
     }, [router.isReady]);
 
     return (
-        <div>
-            <h1>{mood}</h1>
+        <div className="bg-black h-screen">
+            <main>
+                {/* Sidebar */}
+                <Sidebar />
+                {/* Center */}
+            </main>
+
+            <div>
+                {/* Palyer */}
+            </div>
         </div>
     )
 }
