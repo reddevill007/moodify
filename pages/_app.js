@@ -1,13 +1,12 @@
 import "../styles/globals.css";
-import { StateProvider } from "../store/StateProvider";
-import reducer, { initalState } from "../store/reducer";
+import { RecoilRoot } from "recoil";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
-      <StateProvider initialState={initalState} reducer={reducer}>
+      <RecoilRoot>
         <Component {...pageProps} />
-      </StateProvider>
+      </RecoilRoot>
     </>
   );
 }
