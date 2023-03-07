@@ -1,13 +1,35 @@
+import { shuffle } from "lodash";
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
     const [mood, setMood] = useState("");
     const [playlist, setPlaylist] = useState([]);
-    const [track, setTrack] = useState(1)
+    const [track, setTrack] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [fetchPlaylistId, setFetchPlaylistId] = useState(null);
     const router = useRouter();
 
+    const sad = [
+        '7354197464',
+        '10814357062',
+        '6090542704',
+        '7618573602',
+        '10883060842'
+    ]
+
+    const happy = [
+        '1431548345',
+        '8696658362',
+        '5240613242'
+    ]
+
+    const noMood = [
+        '3645740262'
+    ]
+
     const fetchData = () => {
+        console.log(fetchPlaylistId)
         const options = {
             method: 'GET',
             headers: {
@@ -16,25 +38,34 @@ export default function Dashboard() {
             }
         };
 
-        fetch('https://deezerdevs-deezer.p.rapidapi.com/playlist/7618573602', options)
+        fetch(`https://deezerdevs-deezer.p.rapidapi.com/playlist/${fetchPlaylistId}`, options)
             .then(response => response.json())
             .then(response => setPlaylist(response))
             .catch(err => console.error(err));
     }
 
-    useEffect(() => {
-        fetchData();
-    }, [])
+    const setPlaylistAccorfingToMood = () => {
+        if (mood && mood === "happy") setFetchPlaylistId(shuffle(happy).pop());
+        else if (mood === "sad") setFetchPlaylistId(shuffle(sad).pop());
+        else setFetchPlaylistId(shuffle(noMood).pop());
+    }
 
     useEffect(() => {
         if (router.isReady) {
+            setIsLoading(true);
             const emotion = router.query.mood;
             setMood(emotion);
+            console.log(mood, typeof mood)
+            setPlaylistAccorfingToMood();
+            fetchData();
+            setIsLoading(false);
         }
-    }, [router.isReady]);
+    }, [router.isReady, fetchPlaylistId]);
+
 
     return (
         <div className="bg-black min-h-screen text-white">
+            {isLoading && <h1 className="text-white">Loading...</h1>}
             <img src={playlist.picture_big} alt="" className="mb-10" />
             <div className="space-y-3 pb-40">
                 {playlist?.tracks?.data.slice(0, 16).map((play, i) => {
@@ -61,5 +92,6 @@ export default function Dashboard() {
                 })}
             </div>
         </div>
+
     )
 }
