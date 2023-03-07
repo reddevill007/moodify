@@ -8,6 +8,7 @@ export default function Dashboard() {
     const [track, setTrack] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [fetchPlaylistId, setFetchPlaylistId] = useState(null);
+    const [artist, setArtist] = useState([]);
     const router = useRouter();
 
     const sad = [
@@ -50,6 +51,23 @@ export default function Dashboard() {
         else setFetchPlaylistId(shuffle(noMood).pop());
     }
 
+    const fetchArtist = () => {
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '43d05354d2msh638a6e3c5df4ab5p1f6609jsn44fdbd5a82ea',
+                'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com'
+            }
+        };
+
+        fetch('https://genius-song-lyrics1.p.rapidapi.com/artist/leaderboard/?id=344497&per_page=20&page=1', options)
+            .then(response => response.json())
+            .then(response => setArtist(response.leaderboard))
+            .catch(err => console.error(err));
+
+
+    }
+
     useEffect(() => {
         if (router.isReady) {
             setIsLoading(true);
@@ -58,6 +76,8 @@ export default function Dashboard() {
             console.log(mood, typeof mood)
             setPlaylistAccorfingToMood();
             fetchData();
+            fetchArtist();
+            console.log(artist)
             setIsLoading(false);
         }
     }, [router.isReady, fetchPlaylistId]);
@@ -66,6 +86,15 @@ export default function Dashboard() {
     return (
         <div className="bg-black min-h-screen text-white">
             {isLoading && <h1 className="text-white">Loading...</h1>}
+            <div className="flex gap-2">
+                {artist.map((art) => (
+                    <div key={art?.id} className="flex gap-10">
+                        <img className="h-10 w-10 rounded-full" src={art?.user?.avatar?.medium.url} alt="" />
+                        <p>{art?.user?.name}</p>
+                    </div>
+
+                ))}
+            </div>
             <img src={playlist.picture_big} alt="" className="mb-10" />
             <div className="space-y-3 pb-40">
                 {playlist?.tracks?.data.slice(0, 16).map((play, i) => {
