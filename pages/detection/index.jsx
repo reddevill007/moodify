@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import * as faceapi from "face-api.js";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Detection() {
   const router = useRouter();
@@ -28,44 +29,17 @@ export default function Detection() {
     });
   };
 
-  const startVideo = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((currentStream) => {
-        videoRef.current.srcObject = currentStream;
-      })
-      .catch((err) => {
-        console.error(err);
-
-      });
-  };
-
-  const handleExpressions = () => {
-    setLoading(true);
-    const sortable = Object.fromEntries(
-      Object.entries(expression).sort(([, a], [, b]) => a - b)
-    );
-
-    const res = Object.keys(sortable).pop();
-    setResult(res);
-    console.log(result);
-
-    videoRef.current.srcObject = null;
-
-    setOpen(true);
-    setLoading(false);
-  };
-
   const faceDetection = async () => {
-    const interval = setInterval(async () => {
+    setInterval(async () => {
       if (!open) {
         const detections = await faceapi
-          ?.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
+          ?.detectAllFaces(
+            videoRef.current,
+            new faceapi.TinyFaceDetectorOptions()
+          )
           ?.withFaceLandmarks()
           ?.withFaceExpressions();
         setExpression(detections[0]?.expressions);
-
-
 
         canvasRef.current.innerHtml = faceapi.createCanvasFromMedia(
           videoRef.current
@@ -88,13 +62,51 @@ export default function Detection() {
     }, 1000);
   };
 
+
+  const startVideo = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((currentStream) => {
+        videoRef.current.srcObject = currentStream;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleExpressions = () => {
+    setLoading(true);
+    if (expression) {
+      const sortable = Object.fromEntries(
+        Object.entries(expression).sort(([, a], [, b]) => a - b)
+      );
+      const res = Object.keys(sortable).pop();
+      setResult(res);
+      console.log(result);
+
+      videoRef.current.srcObject = null;
+
+      setOpen(true);
+      setLoading(false);
+    } else {
+      console.log("no expression")
+    }
+  };
+
+  function onClick() {
+    window.location.href = `/dashboard/${result}`
+  }
+
   return (
-    <div className="min-h-screen flex justify-center items-center flex-col bg-gradient-to-tr from-slate-700 to-slate-900">
-      <h1 className="text-red-800">MOODIFY</h1>
-      <div className="relative mb-16 w-[940px] h-[650px]">
+    <div className="flex justify-between items-center flex-col bg-black p-4 pb-[78px] text-white">
+      <Head>
+        <title>Moodify: Emotion Detection</title>
+      </Head>
+      {/* <h1 className="text-red-800">MOODIFY</h1> */}
+      <div className="relative mb-16 rounded-xl overflow-hidden  w-fit h-9/12">
         <video
           crossOrigin="anonymous"
-          className="w-full h-full"
+          className="w-full h-full rounded-xl p-4 bg-black bg-opacity-30"
           ref={videoRef}
           autoPlay
         ></video>
@@ -102,7 +114,7 @@ export default function Detection() {
           ref={canvasRef}
           width="100%"
           height="100%"
-          className="absolute top-0 left-0 bg-black bg-opacity-25"
+          className="absolute top-0 left-0 w-full h-full"
         />
       </div>
 
@@ -113,7 +125,7 @@ export default function Detection() {
         Stop
       </button>
       {loading ? "loading..." : null}
-      {open && <Link href={`/dashboard/${result}`}>Find Music</Link>}
+      {open && <div onClick={onClick}>Find Music</div>}
 
       <p>You seem {result} </p>
     </div>
