@@ -95,7 +95,7 @@ export default function Dashboard() {
             fetchArtist();
             setIsLoading(false);
         }
-    }, [router.isReady, fetchPlaylistId, setPlaylistAccordingToMood, router.query.mood, fetchData]);
+    }, [router.isReady]);
 
 
     return (

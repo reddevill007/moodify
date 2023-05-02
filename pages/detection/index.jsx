@@ -14,11 +14,6 @@ export default function Detection() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    startVideo();
-    videoRef && loadModels();
-  }, [loadModels]);
-
   const loadModels = () => {
     Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
@@ -29,6 +24,12 @@ export default function Detection() {
       faceDetection();
     });
   };
+
+  useEffect(() => {
+    startVideo();
+
+    videoRef && loadModels();
+  }, []);
 
   const faceDetection = async () => {
     setInterval(async () => {
