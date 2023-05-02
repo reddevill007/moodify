@@ -51,7 +51,7 @@ export default function Dashboard() {
             .catch(err => console.error(err));
     }
 
-    const setPlaylistAccorfingToMood = () => {
+    const setPlaylistAccordingToMood = () => {
         if (mood && mood === "happy") setFetchPlaylistId(shuffle(happy).pop());
         else if (mood === "sad") setFetchPlaylistId(shuffle(sad).pop());
         else setFetchPlaylistId(shuffle(noMood).pop());
@@ -90,12 +90,12 @@ export default function Dashboard() {
             setIsLoading(true);
             const emotion = router.query.mood;
             setMood(emotion);
-            setPlaylistAccorfingToMood();
+            setPlaylistAccordingToMood();
             fetchData();
             fetchArtist();
             setIsLoading(false);
         }
-    }, [router.isReady, fetchPlaylistId]);
+    }, [router.isReady, fetchPlaylistId, setPlaylistAccordingToMood, router.query.mood, fetchData]);
 
 
     return (

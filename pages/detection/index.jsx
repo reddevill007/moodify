@@ -17,7 +17,7 @@ export default function Detection() {
   useEffect(() => {
     startVideo();
     videoRef && loadModels();
-  }, []);
+  }, [loadModels]);
 
   const loadModels = () => {
     Promise.all([
