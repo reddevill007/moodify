@@ -5,19 +5,29 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Spotify Recognition</title>
+        <title>Moodify - Recognition</title>
       </Head>
-      <div className="bg-black min-h-screen w-full flex items-center justify-center flex-col gap-24 text-white">
-        <div className="relative w-[600px] flex items-center justify-center">
-          <div className="w-16 h-16 border-b-0 border-r-0 absolute top-0 left-0 border-[8px] border-[#00bcd4]"></div>
-          <div className="w-16 h-16 border-l-0 border-b-0 absolute top-0 right-0 border-[8px] border-[#00bcd4]"></div>
-          <div className="w-16 h-16 border-t-0 border-r-0 absolute bottom-0 left-0 border-[8px] border-[#00bcd4]"></div>
-          <div className="w-16 h-16 border-t-0 border-l-0 absolute bottom-0 right-0 border-[8px] border-[#00bcd4]"></div>
-          <img src="/images/recognition.gif" alt="recognition" />
+      <div className="min-h-screen container mx-auto flex items-center justify-center flex-col gap-10 text-white">
+        <div className="w-[90%] md:w-[100%]">
+          <h1 className="text-blue-800 font-bold text-2xl md:text-4xl text-center mb-4">
+            Welcome to moodify
+          </h1>
+          <p className="text-blue-300 max-w-[100ch] text-center mx-auto">
+            Let your face do the talking and let us find the music that matches
+            your mood. Our advanced facial emotion detection technology analyzes
+            your emotions and recommends the perfect playlist for you.
+          </p>
+        </div>
+        <div className="md:w-[300px] md:h-[300px] w-[200px] h-[200px] flex items-center justify-center border border-blue-800 rounded-full overflow-hidden">
+          <img
+            src="https://cdn.dribbble.com/users/93860/screenshots/3985406/face-id_1.gif"
+            alt="recognition"
+            className="h-full w-full object-cover"
+          />
         </div>
         <Link
           href="/detection"
-          className="border px-4 py-3 rounded border-[#00bcd4] text-[#00bcd4]"
+          className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
         >
           Start Detection
         </Link>

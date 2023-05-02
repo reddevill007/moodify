@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <RecoilRoot>
-        <Navbar />
+        {/* <Navbar /> */}
         <Component {...pageProps} />
       </RecoilRoot>
     </>
