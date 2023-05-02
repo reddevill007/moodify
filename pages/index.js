@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -19,8 +20,10 @@ export default function Home() {
           </p>
         </div>
         <div className="md:w-[300px] md:h-[300px] w-[200px] h-[200px] flex items-center justify-center border border-blue-800 rounded-full overflow-hidden">
-          <img
-            src="https://cdn.dribbble.com/users/93860/screenshots/3985406/face-id_1.gif"
+          <Image
+            src="/images/face.gif"
+            height={20}
+            width={20}
             alt="recognition"
             className="h-full w-full object-cover"
           />

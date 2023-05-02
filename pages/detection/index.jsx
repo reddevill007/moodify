@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import * as faceapi from "face-api.js";
 import Link from "next/link";
@@ -109,8 +110,10 @@ export default function Detection() {
           <div className="h-full w-full flex flex-col justify-center items-center gap-5">
             <p className="text-blue-500 font-medium text-xl max-w-[100ch] text-center">You seem {result}</p>
             <div className="md:w-[300px] md:h-[300px] w-[200px] h-[200px] flex items-center justify-center border border-blue-800 rounded-full overflow-hidden">
-              <img
-                src="https://cdn.dribbble.com/users/93860/screenshots/3985406/face-id_1.gif"
+              <Image
+                src="/images/face.gif"
+                height={20}
+                width={20}
                 alt="recognition"
                 className="h-full w-full object-cover"
               />
