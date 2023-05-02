@@ -98,15 +98,16 @@ export default function Detection() {
   }
 
   return (
-    <div className="flex justify-between items-center flex-col bg-black p-4 pb-[78px] text-white">
+    <div className="flex justify-center items-center flex-col text-blue-800 h-screen">
       <Head>
         <title>Moodify: Emotion Detection</title>
       </Head>
-      {/* <h1 className="text-red-800">MOODIFY</h1> */}
-      <div className="relative mb-16 rounded-xl overflow-hidden  w-fit h-9/12">
+      <h1 className="text-blue-800 font-bold text-2xl md:text-4xl text-center mb-4">Moodify</h1>
+      <p className="text-blue-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodify's Mood-Based Music Selection</p>
+      <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px]">
         <video
           crossOrigin="anonymous"
-          className="w-full h-full rounded-xl p-4 bg-black bg-opacity-30"
+          className="w-full h-full"
           ref={videoRef}
           autoPlay
         ></video>
@@ -119,15 +120,13 @@ export default function Detection() {
       </div>
 
       <button
-        className="pointer border p-5"
+        className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
         onClick={() => handleExpressions()}
       >
         Stop
       </button>
       {loading ? "loading..." : null}
       {open && <div onClick={onClick}>Find Music</div>}
-
-      <p>You seem {result} </p>
     </div>
   );
 }
