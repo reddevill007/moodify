@@ -105,9 +105,21 @@ export default function Detection() {
       <h1 className="text-blue-800 font-bold text-2xl md:text-4xl text-center mb-4">Moodify</h1>
       <p className="text-blue-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodify's Mood-Based Music Selection</p>
       <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px]">
+        {open &&
+          <div>
+            You seem {result}
+            <div className="md:w-[300px] md:h-[300px] w-[200px] h-[200px] flex items-center justify-center border border-blue-800 rounded-full overflow-hidden">
+              <img
+                src="https://cdn.dribbble.com/users/93860/screenshots/3985406/face-id_1.gif"
+                alt="recognition"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
+        }
         <video
           crossOrigin="anonymous"
-          className="w-full h-full"
+          className={`w-full h-full ${open ? 'hidden' : 'block'}`}
           ref={videoRef}
           autoPlay
         ></video>
@@ -115,18 +127,23 @@ export default function Detection() {
           ref={canvasRef}
           width="100%"
           height="100%"
-          className="absolute top-0 left-0 w-full h-full"
+          className={`absolute top-0 left-0 w-full h-full ${open ? 'hidden' : 'block'}`}
         />
       </div>
 
-      <button
+      {!open && <button
         className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
         onClick={() => handleExpressions()}
       >
         Stop
-      </button>
-      {loading ? "loading..." : null}
-      {open && <div onClick={onClick}>Find Music</div>}
+      </button>}
+      {open &&
+        <div
+          className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
+          onClick={onClick}
+        >
+          Find Music
+        </div>}
     </div>
   );
 }
