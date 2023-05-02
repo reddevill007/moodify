@@ -106,8 +106,8 @@ export default function Detection() {
       <p className="text-blue-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodify's Mood-Based Music Selection</p>
       <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px]">
         {open &&
-          <div>
-            You seem {result}
+          <div className="h-full w-full flex flex-col justify-center items-center gap-5">
+            <p className="text-blue-500 font-medium text-xl max-w-[100ch] text-center">You seem {result}</p>
             <div className="md:w-[300px] md:h-[300px] w-[200px] h-[200px] flex items-center justify-center border border-blue-800 rounded-full overflow-hidden">
               <img
                 src="https://cdn.dribbble.com/users/93860/screenshots/3985406/face-id_1.gif"
