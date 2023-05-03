@@ -76,6 +76,17 @@ export default function Detection() {
       });
   };
 
+  const getExpression = () => {
+    if (expression) {
+      const sortable = Object.fromEntries(
+        Object.entries(expression).sort(([, a], [, b]) => a - b)
+      );
+      const res = Object.keys(sortable).pop();
+      return res;
+    }
+    return "detecting...";
+  }
+
   const handleExpressions = () => {
     setLoading(true);
     if (expression) {
@@ -131,19 +142,22 @@ export default function Detection() {
           ref={canvasRef}
           width="100%"
           height="100%"
-          className={`absolute top-0 left-0 w-full h-full ${open ? 'hidden' : 'block'}`}
+          className={`absolute top-0 left-0 ${open ? 'hidden' : 'block'} bg-black bg-opacity-30`}
         />
       </div>
 
-      {!open && <button
-        className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
-        onClick={() => handleExpressions()}
-      >
-        Stop
-      </button>}
+      {!open && <div className="flex items-center justify-center flex-col gap-2">
+        <p className="text-blue-500 font-medium text-xl max-w-[100ch] text-center">You seem: {getExpression()}</p>
+        <button
+          className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
+          onClick={() => handleExpressions()}
+        >
+          Stop
+        </button>
+      </div>}
       {open &&
         <div
-          className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
+          className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600 cursor-pointer"
           onClick={onClick}
         >
           Find Music
