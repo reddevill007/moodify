@@ -105,7 +105,7 @@ export default function Detection() {
         <title>Moodify: Emotion Detection</title>
       </Head>
       <h1 className="text-blue-800 font-bold text-2xl md:text-4xl text-center mb-4">Moodify</h1>
-      <p className="text-blue-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodify's Mood-Based Music Selection</p>
+      <p className="text-blue-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodifys Mood-Based Music Selection</p>
       <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px]">
         {open &&
           <div className="h-full w-full flex flex-col justify-center items-center gap-5">
