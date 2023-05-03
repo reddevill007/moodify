@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 
 import { secondToMinuteAndSeconds } from "../../utils/time";
+import Image from "next/image";
 
 export default function Dashboard() {
     const [mood, setMood] = useState("");
@@ -99,14 +100,14 @@ export default function Dashboard() {
 
 
     return (
-        <div className="flex w-[calc(100%-68px)] ml-[68px]">
+        <div className="relative container mx-auto flex items-center justify-center">
             {/* Head */}
             <Head>
                 <title>Moodify - Result:{mood}</title>
             </Head>
 
             {/* Center */}
-            <div className="bg-black text-white w-full p-4">
+            <div className="text-blue-800 w-full p-4">
                 {isLoading && <h1 className="text-white">Loading...</h1>}
 
                 {/* Banner */}
@@ -119,14 +120,14 @@ export default function Dashboard() {
 
                 {/* Playlist */}
                 <div className="space-y-3 pb-40">
-                    {playlist?.tracks?.data.map((play, i) => {
+                    {playlist?.tracks?.data.slice(0, 10).map((play, i) => {
                         return (
-                            <div key={play.id} onClick={() => { setTrack(i); setPlaying(false) }} className={`flex gap-10 border-b border-gray-900 cursor-pointer hover:bg-gray-900 rounded-lg items-center p-4 ${i === track && 'bg-gray-900'}`}>
+                            <div key={play.id} onClick={() => { setTrack(i); setPlaying(false) }} className={`flex gap-10 border-b border-blue-900 cursor-pointer hover:bg-blue-900 rounded-lg items-center p-4 ${i === track && 'bg-blue-900'}`}>
                                 <img className="h-10 w-10 rounded-full" src={play.album.cover_big} alt="" />
                                 <div className="flex flex-1 items-center justify-between">
-                                    <p className="text-white w-1/3">{play.title}</p>
-                                    <p className="text-white w-1/3 text-center">{secondToMinuteAndSeconds(play.duration)}</p>
-                                    <p className="text-white w-1/3 text-right">{play.artist.name}</p>
+                                    <p className="text-blue-300 w-1/3">{play.title}</p>
+                                    <p className="text-blue-300 w-1/3 text-center">{secondToMinuteAndSeconds(play.duration)}</p>
+                                    <p className="text-blue-300 w-1/3 text-right">{play.artist.name}</p>
                                 </div>
                             </div>
                         )
@@ -150,19 +151,24 @@ export default function Dashboard() {
             </div>
 
             {/* Player */}
-            <div className="bg-gray-900 bg-opacity-90 p-5 fixed bottom-0 left-[68px] w-[calc(100%-48px)] text-white">
+            <div className="bg-blue-900 bg-opacity-90 p-5 fixed bottom-0 left-1/2 -translate-x-1/2 container text-white">
                 <div>
                     <p>{secondToMinuteAndSeconds(audioRef?.current?.duration)}</p>
                 </div>
-                {playlist?.tracks?.data.map((play, i) => {
+                {playlist?.tracks?.data.slice(0, 10).map((play, i) => {
                     if (i === track) {
                         return (
                             <div key={play.id} className="w-full flex justify-between items-center px-10">
-                                <img className="h-14 w-14 rounded-full" src={play.album.cover_big} alt="" />
+                                <Image
+                                    height={20}
+                                    width={20}
+                                    className="h-14 w-14 rounded-full"
+                                    src={play.album.cover_big}
+                                    alt={play.artist.name} />
                                 <p>{play.title}</p>
                                 <p className="text-white">{play.artist.name}</p>
                                 <audio src={play.preview} ref={audioRef} />
-                                <div className="w-8 h-8 bg-gray-900 flex justify-center items-center cursor-pointer rounded-full" onClick={togglePlay}>{playing ? <BsPauseFill className="h-6 w-6" /> : <BsPlayFill className="h-6 w-6" />}</div>
+                                <div className="w-8 h-8 bg-blue-900 flex justify-center items-center cursor-pointer rounded-full" onClick={togglePlay}>{playing ? <BsPauseFill className="h-6 w-6" /> : <BsPlayFill className="h-6 w-6" />}</div>
 
                             </div>
                         )

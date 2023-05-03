@@ -142,11 +142,11 @@ export default function Detection() {
           ref={canvasRef}
           width="100%"
           height="100%"
-          className={`absolute top-0 left-0 ${open ? 'hidden' : 'block'} bg-black bg-opacity-30`}
+          className={`absolute top-0 left-0 w-full h-full ${open ? 'hidden' : 'block'}`}
         />
       </div>
 
-      {!open && <div className="flex items-center justify-center flex-col gap-2">
+      {!open && <div className="flex items-center justify-center flex-col">
         <p className="text-blue-500 font-medium text-xl max-w-[100ch] text-center">You seem: {getExpression()}</p>
         <button
           className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
