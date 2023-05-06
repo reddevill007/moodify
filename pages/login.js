@@ -1,19 +1,11 @@
 import React from "react";
-import {
-  useSession,
-  signIn,
-  signOut,
-  getProviders,
-  getSession,
-} from "next-auth/react";
+import { useSession, signIn, getProviders, getSession } from "next-auth/react";
 import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 const Login = ({ providers }) => {
   const { data: session } = useSession();
-  const router = useRouter();
-  console.log(providers);
 
   return (
     <div className="cotainer h-screen mx-auto flex flex-col justify-center items-center">
@@ -29,7 +21,7 @@ const Login = ({ providers }) => {
       </p>
       <Image
         className="h-[300px] w-[300px] object-cover"
-        src="/images/login.webp"
+        src="/images/login.png"
         height={20}
         width={20}
         alt="Login"
