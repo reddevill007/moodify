@@ -3,14 +3,15 @@ import { useRouter } from "next/router"
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
-import { shuffle } from "lodash";
+import _, { shuffle } from "lodash";
 
 import { secondToMinuteAndSeconds } from "../../utils/time";
 import axios from "axios";
+import Playlist from "../../components/Music/Playlist";
 
 export default function Dashboard() {
     const [mood, setMood] = useState("");
-    const [fetchPlaylistId, setFetchPlaylistId] = useState(3645740262);
+    const [fetchPlaylistId, setFetchPlaylistId] = useState("3645740262");
     const [playlist, setPlaylist] = useState([]);
     const router = useRouter();
 
@@ -28,14 +29,12 @@ export default function Dashboard() {
         '5240613242'
     ]
 
-    const noMood = [
-        '3645740262'
-    ]
-
     const selectPlaylistRandomly = () => {
-        if (mood && mood === "happy") setFetchPlaylistId(shuffle(happy).pop());
+        console.log("called")
+        if (mood === "happy") setFetchPlaylistId(shuffle(happy).pop());
+        // if (mood === "happy") setFetchPlaylistId(_.sample(happy));
         else if (mood === "sad") setFetchPlaylistId(shuffle(sad).pop());
-        else setFetchPlaylistId(3645740262);
+        // else setFetchPlaylistId(3645740262);
     }
 
     async function fetchSongs(playlistId) {
@@ -67,56 +66,40 @@ export default function Dashboard() {
     }, [router.isReady]);
 
     return (
-        <div className="relative container mx-auto flex items-center justify-center">
+        <div className="mx-auto flex items-center justify-center">
             {/* Head */}
             <Head>
                 <title>Moodify - Result:{mood}</title>
             </Head>
 
+            {playlist === [] && <div className="bg-red-900">loading...</div>}
+
             {/* Background */}
-            <div>
-                <h1>{playlist?.title}</h1>
-                <p>{playlist?.description}</p>
-                <p>{playlist?.fans}</p>
-                <p>{secondToMinuteAndSeconds(playlist?.duration)}</p>
-                <p>{playlist?.nb_tracks}</p>
-                <Image
-                    src={playlist?.picture_medium}
-                    alt="Picture of the author"
-                    width={500}
-                    height={500}
-                />
+            <div className="mt-10 w-full">
 
                 <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-4xl font-bold text-center">
-                        {mood === "happy" && "Happy"}
-                        {mood === "sad" && "Sad"}
-                        {mood === "noMood" && "No Mood"}
-                    </h1>
                     <p className="text-xl text-center">
                         {mood === "happy" && "You are happy"}
                         {mood === "sad" && "You are sad"}
                         {mood === "noMood" && "You are not in a mood"}
                     </p>
                 </div>
+                <div className="min-h-screen p-5 w-full bg-slate-200 flex flex-col justify-between items-center">
+                    <h1 className="text-4xl">{playlist?.title}</h1>
+                    <p>{playlist?.description}</p>
+                    <p>{playlist?.fans} Likes</p>
+                    <p>{secondToMinuteAndSeconds(playlist?.duration)} min</p>
+                    <p>{playlist?.nb_tracks} songs</p>
+                    <Image
+                        src={playlist?.picture_medium}
+                        alt="Picture of the author"
+                        className="rounded-full"
+                        width={500}
+                        height={500}
+                    />
+                </div>
 
-                <ul>
-                    {playlist?.tracks?.data?.map((track) => (
-                        <li key={track.id}>
-                            <p>{track.title}</p>
-                            <p>{track.artist.name}</p>
-                            <p>{secondToMinuteAndSeconds(track.duration)}</p>
-                            <Image
-
-                                src={track.album.cover_medium}
-                                alt="Picture of the author"
-                                width={50}
-                                height={50}
-                            />
-                            <audio src={track.preview} controls></audio>
-                        </li>
-                    ))}
-                </ul>
+                <Playlist playlists={playlist?.tracks?.data} />
             </div>
         </div>
 
