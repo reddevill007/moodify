@@ -19,7 +19,7 @@ const Login = ({ providers }) => {
         Transform Your Listening Experience with Moodifys Mood-Based Music
         Selection
       </p>
-      <Image
+      <img
         className="h-[300px] w-[300px] object-cover"
         src="/images/login.png"
         height={20}
