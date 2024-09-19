@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import * as faceapi from "face-api.js";
 import Head from "next/head";
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useSession, signOut, getSession } from "next-auth/react";
 
 export default function Detection() {
@@ -114,13 +114,13 @@ export default function Detection() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen pt-20 text-blue-800">
+    <div className="flex flex-col items-center justify-center h-screen p-10 md:p-20">
       <Head>
         <title>Moodify: Emotion Detection</title>
       </Head>
       <h1 className="mb-2 text-2xl font-bold text-center text-white md:text-4xl">Moodify</h1>
-      <p className="text-gray-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodifys Mood-Based Music Selection</p>
-      <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px] rounded-lg border bg-[#15171C] border-[#F97535]">
+      <p className="text-gray-300 max-w-[100ch] text-center mx-auto mb-3">Transform Your Listening Experience with Moodifys Mood-Based Music Selection</p>
+      <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px] rounded-lg border bg-[#15171C] border-[#F97535] mb-3">
         {open &&
           <div className="flex flex-col items-center justify-center w-full h-full gap-2">
             <p className="text-gray-300 font-medium text-xl max-w-[100ch] text-center">You seem {result}</p>
@@ -137,7 +137,7 @@ export default function Detection() {
         }
         <video
           crossOrigin="anonymous"
-          className={`w-[500px] h-[500px] ${open ? 'hidden' : 'block'} rounded`}
+          className={`w-full h-full ${open ? 'hidden' : 'block'} rounded`}
           ref={videoRef}
           autoPlay
         ></video>
@@ -151,12 +151,16 @@ export default function Detection() {
 
       {!open && <div className="flex flex-col items-center justify-center">
         <p className="text-white font-medium text-xl max-w-[100ch] text-center -mt-2">You seem: {getExpression()}</p>
-        <button
-          className="bg-[#F97535] hover:bg-[#F97535]/90 text-white h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 mt-7"
+        {expression ? <button
+          className="bg-[#F97535] hover:bg-[#F97535]/90 text-white h-10 px-8 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 mt-7"
           onClick={() => handleExpressions()}
         >
           Stop
-        </button>
+        </button> : <button
+          className="bg-[#F97535] hover:bg-[#F97535]/90 text-white h-10 px-10 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 mt-7"
+        >
+          <AiOutlineLoading3Quarters className="animate-spin" />
+        </button>}
       </div>}
       {open &&
         <div
