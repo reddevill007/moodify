@@ -10,7 +10,7 @@ const Login = ({ providers }) => {
       <Head>
         <title>Moodify - Login</title>
       </Head>
-      <div className="flex flex-col w-full md:w-1/2">
+      <div className="flex flex-col w-full h-[50vh] md:min-h-screen md:w-1/2">
         <div className="flex justify-center pt-12 md:-mb-24 md:justify-start md:pl-12">
           <Link
             href="/"
@@ -19,13 +19,13 @@ const Login = ({ providers }) => {
             Moodify
           </Link>
         </div>
-        <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
+        <div className="w-full lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 px-2 md:justify-start md:px-6 md:pt-0">
           <p className="mt-2 text-center text-gray-500">
             Welcome back, please login to continue.
           </p>
           {Object.values(providers).map((provider) => (
             <button
-              className="flex items-center justify-center px-4 py-2 mt-8 text-white transition border rounded-md outline-none -2 ring-white ring-offset-2 focus:ring-2 hover:text-gray-500 hover:ring-gray-500"
+              className="flex items-center justify-center px-4 py-2 mt-8 text-white transition border rounded-md outline-none hover:ring-gray-500"
               onClick={() => signIn(provider.id)}
               key={provider.name}
             >
@@ -38,16 +38,16 @@ const Login = ({ providers }) => {
             </button>
           ))}
           <div className="flex items-center justify-center mt-10">
-            <p className="text-gray-600 whitespace-nowrap">
+            <p className="text-center text-gray-600">
               Transform Your Listening Experience with Moodifys Mood-Based Music
               Selection
             </p>
           </div>
         </div>
       </div>
-      <div className="relative hidden h-screen bg-black pointer-events-none select-none md:block md:w-1/2">
+      <div className="h-[50vh] md:h-screen md:w-1/2">
         <img
-          className="absolute top-0 object-cover w-full h-full -z-1 opacity-90"
+          className="object-cover w-full h-auto"
           src="/images/loginimage.jpeg"
           alt="Background"
         />
