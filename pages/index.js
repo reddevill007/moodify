@@ -28,7 +28,7 @@ export default function Home() {
         <img
           src="/images/landingimage.png"
           alt="recognition"
-          className="h-[60vh] w-auto"
+          className="w-full h-auto md:h-[60vh] md:w-auto"
         />
       </div>
     </div>
