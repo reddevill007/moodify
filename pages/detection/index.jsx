@@ -43,6 +43,7 @@ export default function Detection() {
           )
           ?.withFaceLandmarks()
           ?.withFaceExpressions();
+
         setExpression(detections[0]?.expressions);
 
         canvasRef.current.innerHtml = faceapi.createCanvasFromMedia(
@@ -113,30 +114,30 @@ export default function Detection() {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col text-blue-800 h-screen">
+    <div className="flex flex-col items-center justify-center h-screen pt-20 text-blue-800">
       <Head>
         <title>Moodify: Emotion Detection</title>
       </Head>
-      <h1 className="text-blue-800 font-bold text-2xl md:text-4xl text-center mb-4">Moodify</h1>
-      <p className="text-blue-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodifys Mood-Based Music Selection</p>
-      <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px]">
+      <h1 className="mb-2 text-2xl font-bold text-center text-white md:text-4xl">Moodify</h1>
+      <p className="text-gray-300 max-w-[100ch] text-center mx-auto">Transform Your Listening Experience with Moodifys Mood-Based Music Selection</p>
+      <div className="relative overflow-hidden md:w-[500px] md:h-[500px] w-[300px] h-[300px] rounded-lg border bg-[#15171C] border-[#F97535]">
         {open &&
-          <div className="h-full w-full flex flex-col justify-center items-center gap-5">
-            <p className="text-blue-500 font-medium text-xl max-w-[100ch] text-center">You seem {result}</p>
+          <div className="flex flex-col items-center justify-center w-full h-full gap-2">
+            <p className="text-gray-300 font-medium text-xl max-w-[100ch] text-center">You seem {result}</p>
             <div className="md:w-[300px] md:h-[300px] w-[200px] h-[200px] flex items-center justify-center border border-blue-800 rounded-full overflow-hidden">
               <Image
                 src="/images/face.gif"
                 height={20}
                 width={20}
                 alt="recognition"
-                className="h-full w-full object-cover"
+                className="object-cover w-full h-full"
               />
             </div>
           </div>
         }
         <video
           crossOrigin="anonymous"
-          className={`w-full h-full ${open ? 'hidden' : 'block'}`}
+          className={`w-[500px] h-[500px] ${open ? 'hidden' : 'block'} rounded`}
           ref={videoRef}
           autoPlay
         ></video>
@@ -144,14 +145,14 @@ export default function Detection() {
           ref={canvasRef}
           width="100%"
           height="100%"
-          className={`absolute top-0 left-0 w-full h-full ${open ? 'hidden' : 'block'}`}
+          className={`absolute top-0 left-0 w-full h-full ${open ? 'hidden' : 'block'} rounded`}
         />
       </div>
 
-      {!open && <div className="flex items-center justify-center flex-col">
-        <p className="text-blue-500 font-medium text-xl max-w-[100ch] text-center">You seem: {getExpression()}</p>
+      {!open && <div className="flex flex-col items-center justify-center">
+        <p className="text-white font-medium text-xl max-w-[100ch] text-center -mt-2">You seem: {getExpression()}</p>
         <button
-          className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600"
+          className="bg-[#F97535] hover:bg-[#F97535]/90 text-white h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 mt-7"
           onClick={() => handleExpressions()}
         >
           Stop
@@ -159,7 +160,7 @@ export default function Detection() {
       </div>}
       {open &&
         <div
-          className="border px-4 py-3 rounded text-[#fff] font-bold bg-gradient-to-tr from-blue-400 to-blue-600 cursor-pointer"
+          className="bg-[#F97535] hover:bg-[#F97535]/90 text-white h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 mt-7"
           onClick={onClick}
         >
           Find Music

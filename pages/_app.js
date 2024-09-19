@@ -2,11 +2,14 @@ import "../styles/globals.css";
 import { RecoilRoot } from "recoil";
 import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
+import { useRouter } from "next/router"; // Import useRouter hook
 
 import Navbar from "../components/Navigation/Navbar";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const router = useRouter(); // Initialize router
+
   return (
     <>
       <SessionProvider session={session}>
@@ -30,7 +33,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             />
             <meta
               name="keywords"
-              content="Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists"
+              content="Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists, Moodify, Mood, Recognition, Facial, Face, Emotion, Emotions, Music, Spotify, Song, Songs, Playlist, Playlists"
             />
             <meta name="saurabh pandey" content="Moodify" />
             <meta
@@ -39,8 +42,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             />
             <link rel="icon" href="/images/logo.png" />
           </Head>
-          <Navbar />
-          <Component {...pageProps} />
+          {/* Conditionally render the Navbar based on the current route */}
+          {router.pathname !== "/login" && <Navbar />}
+          <main className="bg-[#101114]">
+            <Component {...pageProps} />
+          </main>
         </RecoilRoot>
       </SessionProvider>
     </>

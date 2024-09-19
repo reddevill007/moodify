@@ -66,16 +66,16 @@ export default function Dashboard() {
     }, [router.isReady]);
 
     return (
-        <div className="mx-auto flex items-center justify-center">
+        <div className="flex items-center justify-center mx-auto">
             {/* Head */}
             <Head>
                 <title>Moodify - Result:{mood}</title>
             </Head>
 
-            {playlist === [] && <div className="bg-red-900">loading...</div>}
+            {playlist === null && <div className="bg-red-900">loading...</div>}
 
             {/* Background */}
-            <div className="mt-10 w-full">
+            <div className="w-full mt-10">
 
                 <div className="flex flex-col items-center justify-center">
                     <p className="text-xl text-center">
@@ -84,7 +84,7 @@ export default function Dashboard() {
                         {mood === "noMood" && "You are not in a mood"}
                     </p>
                 </div>
-                <div className="min-h-screen p-5 w-full bg-slate-200 flex flex-col justify-between items-center">
+                <div className="flex flex-col items-center justify-between w-full min-h-screen p-5 bg-slate-200">
                     <h1 className="text-4xl">{playlist?.title}</h1>
                     <p>{playlist?.description}</p>
                     <p>{playlist?.fans} Likes</p>
