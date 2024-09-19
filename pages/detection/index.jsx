@@ -46,7 +46,7 @@ export default function Detection() {
 
         setExpression(detections[0]?.expressions);
 
-        canvasRef.current.innerHtml = faceapi.createCanvasFromMedia(
+        canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(
           videoRef.current
         );
         faceapi.matchDimensions(canvasRef.current, {
